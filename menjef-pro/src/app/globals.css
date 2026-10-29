@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 244 247 251;
+  --surface: 255 255 255;
+  --muted: 241 245 249;
+  --border: 223 230 239;
+  --fg: 15 23 42;
+  --fg-muted: 90 105 128;
+  --primary: 20 88 230;
+  --primary-fg: 255 255 255;
+  --navy: 10 31 68;
+  --accent: 21 150 75;
+  --danger: 210 38 38;
+  --warning: 196 110 6;
+  --success: 21 150 75;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 7 13 26;
+  --surface: 14 22 40;
+  --muted: 24 35 58;
+  --border: 40 54 80;
+  --fg: 236 241 248;
+  --fg-muted: 150 165 188;
+  --primary: 96 156 255;
+  --primary-fg: 7 13 26;
+  --navy: 4 10 24;
+  --accent: 64 200 120;
+  --danger: 248 113 113;
+  --warning: 251 191 36;
+  --success: 74 222 128;
+  color-scheme: dark;
+}
+
+html, body { background: rgb(var(--bg)); color: rgb(var(--fg)); }
+body { -webkit-font-smoothing: antialiased; }
+
+@layer components {
+  .focus-ring { @apply outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-bg; }
+  .input {
+    @apply block w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-fg placeholder:text-fg-muted/70
+           outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:opacity-60;
+  }
+  .label { @apply mb-1.5 block text-sm font-semibold text-fg; }
+  .num { font-variant-numeric: tabular-nums; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+}
