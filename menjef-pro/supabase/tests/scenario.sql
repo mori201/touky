@@ -143,3 +143,13 @@ exception when others then
   raise notice 'OK annulation refusée au caissier : %', sqlerrm;
 end $$;
 \echo 'SCÉNARIO TERMINÉ'
+
+-- Tableau de bord d'une entreprise sans aucune dépense (cas de tout nouvel utilisateur)
+select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-00000000000b', false);
+select public.create_organization('Boutique Moussa', 'boutique') as org2 \gset
+select jsonb_array_length(dashboard_summary(:'org2', now() - interval '1 day', now() + interval '1 day') -> 'warnings') as avertissements_nouvelle_entreprise;
+insert into products (organization_id, name, sale_price) values (:'org2', 'Article sans coût', 1000) returning id as p3 \gset
+select adjust_stock(:'org2', :'p3', (select id from locations where organization_id = :'org2'), 'initial', 5, null, null);
+select create_sale(:'org2', (select id from locations where organization_id = :'org2'), jsonb_build_array(jsonb_build_object('product_id', :'p3', 'quantity', 1)), '[{"method":"cash","amount":1000}]');
+select dashboard_summary(:'org2', now() - interval '1 day', now() + interval '1 day') -> 'warnings' as avertissements_deux;
+\echo 'TABLEAU DE BORD SANS DÉPENSE OK'
