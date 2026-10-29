@@ -55,8 +55,7 @@ from public.treasury_accounts a
 left join public.treasury_movements m on m.account_id = a.id
 group by a.id;
 
-grant select on public.customer_balances, public.supplier_balances, public.account_balances to authenticated;
-revoke all on public.customer_balances, public.supplier_balances, public.account_balances from anon;
+-- Droits sur ces vues : voir 20261029000005_grants.sql
 
 -- ---------------------------------------------------------------------
 -- Tableau de bord
@@ -443,9 +442,4 @@ begin
   );
 end $$;
 
-revoke execute on function public.dashboard_summary(uuid, timestamptz, timestamptz, uuid, uuid) from public, anon;
-revoke execute on function public.cash_session_status(uuid) from public, anon;
-revoke execute on function public.platform_overview() from public, anon;
-grant execute on function public.dashboard_summary(uuid, timestamptz, timestamptz, uuid, uuid) to authenticated;
-grant execute on function public.cash_session_status(uuid) to authenticated;
-grant execute on function public.platform_overview() to authenticated;
+-- Les droits d'exécution sont définis dans 20261029000005_grants.sql
