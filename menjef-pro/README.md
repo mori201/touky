@@ -72,8 +72,8 @@ done
 
 1. **Supabase** : appliquer les fichiers de `supabase/migrations/` dans l'ordre (SQL Editor, `supabase db push` ou MCP).
 2. **Supabase → Authentication → URL Configuration** :
-   - *Site URL* : l'URL de production (ex. `https://menjef-pro.vercel.app`) ;
-   - *Redirect URLs* : `https://menjef-pro.vercel.app/auth/callback` et `https://*-dramemorikeba201-3570s-projects.vercel.app/auth/callback` pour les préversions.
+   - *Site URL* : l'URL de production (ex. `https://menjef.vercel.app`) ;
+   - *Redirect URLs* : `https://menjef.vercel.app/auth/callback` et `https://*-dramemorikeba201-3570s-projects.vercel.app/auth/callback` pour les préversions.
 3. **Supabase → Authentication → SMTP** : configurer un fournisseur d'e-mails (Resend, Brevo…). L'envoi intégré de Supabase est limité à quelques e-mails par heure.
 4. **Vercel** : projet relié au dépôt GitHub, *Root Directory* = `menjef-pro`, variables `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_CONTACT_EMAIL`.
 5. Pour accéder à l'administration SaaS : `insert into public.platform_admins (user_id) values ('<uuid>');`
